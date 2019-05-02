@@ -22,20 +22,14 @@ app.get('/', (request, response) => {
 
 app.get('/location', locationApp);
 
-app.get('/weather', (req, res) => {
-  console.log('weather');
-  checkTable('weather', req, handleExistingTable, res)
-});
+app.get('/weather', (req, res) => checkTable('weather', req, handleExistingTable, res));
 
-app.get('/events', (req, res) => {
-  checkTable('events', req, handleExistingTable, res)
-});
+app.get('/events', (req, res) => checkTable('events', req, handleExistingTable, res));
 
 //uses google API to fetch coordinate data to send to front end using superagent
 //has a catch method to handle bad user search inputs in case google maps cannot
 //find location
 function locationApp(request, response){
-  console.log('location app');
   let sqlStatement = 'SELECT * FROM location WHERE search_query=$1';
   let values = [request.query.data];
   return client.query(sqlStatement, values)
@@ -65,11 +59,9 @@ function checkTable(tableName, request, function1, response){
   let values = [request.query.data.search_query];
   return client.query(sqlStatement, values)
     .then(result => {
-      // console.log('here', result);
       if (result.rowCount > 0) {
         return function1(result);
       } else {
-        console.log('else');
         if (tableName === 'weather') {
           return weatherApp(request, response);
         } else {
@@ -82,7 +74,6 @@ function checkTable(tableName, request, function1, response){
 //creates darksky API url, then uses superagent to make call
 //then generates array of "Weather" objects to send to front end
 function weatherApp(req, res) {
-  console.log('weather');
   const darkSkyUrl = `https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${req.query.data.latitude},${req.query.data.longitude}`;
   return superagent.get(darkSkyUrl)
     .then(result => {
