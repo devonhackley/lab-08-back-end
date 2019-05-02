@@ -4,13 +4,15 @@
 **Version**: 1.0.0
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+Backend Application that handles requests for locations. Provides users with information about location.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+Run commands:
+npm i
+nodemon
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+Backend Application handles request/response.
 
 ## Change Log
 
@@ -26,16 +28,27 @@ Actual time needed to complete:30 mins
 
 Number and name of feature: Database Setup
 
-Estimate of time needed to complete: 1 hour
+Estimate of time needed to complete: 2 hour
 
-Start time: 849
+Start time: 9:20
 
-Finish time:9:18
+Finish time:11:20
 
-Actual time needed to complete:30 mins
+Actual time needed to complete:2 hours
+
+Number and name of feature: Deploy to Heroku
+
+Estimate of time needed to complete: 30 mins
+
+Start time:11:20
+
+Finish time:1:00
+
+Actual time needed to complete:2.5 hours;
 
 
 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+Thank you T.As
 -->
