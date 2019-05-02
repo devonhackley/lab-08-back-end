@@ -51,7 +51,7 @@ function locationApp(request, response){
     })
 }
 function handleExistingTable(result){
-  return result.rows[0];
+  return result.rows;
 }
 
 function checkTable(tableName, request, function1, response){
@@ -80,8 +80,8 @@ function weatherApp(req, res) {
       //make map one liner
       const weatherSummaries = result.body.daily.data.map(day => new Weather(day));
       weatherSummaries.forEach(item => {
-        let insertStatement = 'INSERT INTO weather ( time, forecast, search_query ) VALUES ( $1, $2, $3);';
-        let insertValues = [item.time, item.forecast, req.query.data.search_query];
+        let insertStatement = 'INSERT INTO weather ( time, forecast, search_query, created_at ) VALUES ( $1, $2, $3, $4);';
+        let insertValues = [item.time, item.forecast, req.query.data.search_query, item.created_at];
         client.query(insertStatement, insertValues);
       })
       res.send(weatherSummaries);
@@ -95,8 +95,8 @@ function eventsApp(req, res) {
     .then(result => {
       const eventSummaries = result.body.events.slice(0, 20).map(event => new Event(event));
       eventSummaries.forEach(item => {
-        let insertStatement = 'INSERT INTO events (link, name, event_date, summary, search_query ) VALUES ( $1, $2, $3, $4, $5 );';
-        let insertValues = [ item.link, item.name, item.event_date, item.summary, req.query.data.search_query ];
+        let insertStatement = 'INSERT INTO events (link, name, event_date, summary, search_query, created_at ) VALUES ( $1, $2, $3, $4, $5, $6 );';
+        let insertValues = [ item.link, item.name, item.event_date, item.summary, req.query.data.search_query, item.created_at];
         return client.query(insertStatement, insertValues);
       })
       res.send(eventSummaries);
@@ -111,6 +111,7 @@ function handleError(err, res) {
 function Weather(day) {
   this.time = new Date(day.time * 1000).toDateString();
   this.forecast = day.summary;
+  this.created_at = Date.now();
 }
 
 //Refactored to pass more concise arguments
@@ -126,6 +127,7 @@ function Event(data) {
   this.name = data.name.text;
   this.event_date = new Date(data.start.local).toDateString();
   this.summary = data.description.text;
+  this.created_at = Date.now();
 }
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
