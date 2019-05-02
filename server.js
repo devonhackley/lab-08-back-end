@@ -60,7 +60,7 @@ function checkTable(tableName, request, function1, response){
   return client.query(sqlStatement, values)
     .then(result => {
       if (result.rowCount > 0) {
-        return function1(result);
+        response.send(function1(result));
       } else {
         if (tableName === 'weather') {
           return weatherApp(request, response);
@@ -80,8 +80,8 @@ function weatherApp(req, res) {
       //make map one liner
       const weatherSummaries = result.body.daily.data.map(day => new Weather(day));
       weatherSummaries.forEach(item => {
-        let insertStatement = 'INSERT INTO weather ( time, forecast ) VALUES ( $1, $2);';
-        let insertValues = [item.time, item.forecast ];
+        let insertStatement = 'INSERT INTO weather ( time, forecast, search_query ) VALUES ( $1, $2, $3);';
+        let insertValues = [item.time, item.forecast, req.query.data.search_query];
         client.query(insertStatement, insertValues);
       })
       res.send(weatherSummaries);
@@ -95,9 +95,9 @@ function eventsApp(req, res) {
     .then(result => {
       const eventSummaries = result.body.events.slice(0, 20).map(event => new Event(event));
       eventSummaries.forEach(item => {
-        let insertStatement = 'INSERT INTO events (link, name, event_date, summary ) VALUES ( $1, $2, $3, $4 );';
-        let insertValues = [ item.link, item.name, item.event_date, item.summary ];
-        client.query(insertStatement, insertValues);
+        let insertStatement = 'INSERT INTO events (link, name, event_date, summary, search_query ) VALUES ( $1, $2, $3, $4, $5 );';
+        let insertValues = [ item.link, item.name, item.event_date, item.summary, req.query.data.search_query ];
+        return client.query(insertStatement, insertValues);
       })
       res.send(eventSummaries);
     })
