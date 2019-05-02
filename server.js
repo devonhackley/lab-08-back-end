@@ -111,7 +111,6 @@ function handleError(err, res) {
 function Weather(day) {
   this.time = new Date(day.time * 1000).toDateString();
   this.forecast = day.summary;
-  this.created_at = Date.now();
 }
 
 //Refactored to pass more concise arguments
@@ -127,7 +126,6 @@ function Event(data) {
   this.name = data.name.text;
   this.event_date = new Date(data.start.local).toDateString();
   this.summary = data.description.text;
-  this.created_at = Date.now();
 }
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
