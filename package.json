@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/devonhackley/lab-08-back-end/issues"
   },
-  "homepage": "https://github.com/devonhackley/lab-08-back-end#readme"
+  "homepage": "https://github.com/devonhackley/lab-08-back-end#readme",
+  "dependencies": {
+    "pg": "^7.10.0"
+  }
 }
