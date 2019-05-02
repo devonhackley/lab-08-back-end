@@ -20,9 +20,21 @@ Estimate of time needed to complete: 1 hour
 
 Start time: 849
 
-Finish time: _____
+Finish time:9:18
 
-Actual time needed to complete: _____
+Actual time needed to complete:30 mins
+
+Number and name of feature: Database Setup
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 849
+
+Finish time:9:18
+
+Actual time needed to complete:30 mins
+
+
 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
